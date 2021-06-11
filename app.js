@@ -27,14 +27,16 @@ class UI {
         document.querySelector('#product-form').reset()
     }
     deleteProduct(element) {
-        if (element.name=='delete'){
+        this.delete = window.confirm("Do you really want to delete this product?")
+        if (element.name=='delete' && this.delete){
             element.parentElement.parentElement.parentElement.remove()
             this.showMessage('Product Deleted Successfully', 'warning')
             if(document.querySelector('#product-list').childNodes.length == 3){
                 document.querySelector("#list-header").innerHTML="No products added to show. Save some products to display them here"
             }
         }
-    }
+    
+      }
     showMessage(message, cssClass) {
         const div = document.createElement('div')
         div.className= `alert alert-${cssClass} mt-2 col-md-4`
@@ -75,4 +77,5 @@ document.querySelector('#product-form')
 document.querySelector('#product-list').addEventListener('click', function(e){
     const ui = new UI()
     ui.deleteProduct(e.target)
+    ui.editProduct(e.target)
 })
